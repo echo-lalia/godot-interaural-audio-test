@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bu5jj1xdeuv7l"]
+
+[ext_resource type="Script" uid="uid://d2ql2b5bsnvmr" path="res://character_body_3d.gd" id="1_a202f"]
+[ext_resource type="AudioStream" uid="uid://dh64isi2uvrhc" path="res://784188__josefpres__music-loop-na-guitar-jaguar-flanger-deesser-69-bpm.wav" id="2_noarx"]
+[ext_resource type="Script" uid="uid://cq4sx67ty8a3g" path="res://demo_ui.gd" id="2_r3fl7"]
+[ext_resource type="Script" uid="uid://bjrgsoaqrxjab" path="res://interaural_audio_stream_player_3d.gd" id="3_a0tk4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3tvx1"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4xowi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0tk4"]
+albedo_color = Color(0.09009846, 0.09009849, 0.09009848, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_a202f"]
+material = SubResource("StandardMaterial3D_a0tk4")
+size = Vector2(50, 50)
+orientation = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_a202f"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
+size = Vector3(0.505, 1.008, 0.506)
+
+[node name="Node3D" type="Node3D" unique_id=1589030075]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=2036722392]
+script = ExtResource("1_a202f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1960525886]
+shape = SubResource("CapsuleShape3D_3tvx1")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1617098286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2505625, 0)
+fov = 90.0
+
+[node name="Control" type="Control" parent="CharacterBody3D/Camera3D" unique_id=2059882242]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterBody3D/Camera3D/Control" unique_id=1749458512 node_paths=PackedStringArray("interaural_audio_stream_player")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.01
+anchor_bottom = 0.01
+script = ExtResource("2_r3fl7")
+interaural_audio_stream_player = NodePath("../../../../MeshInstance3D/InterauralAudioStreamPlayer3D")
+
+[node name="PanningLabel" type="Label" parent="CharacterBody3D/Camera3D/Control/VBoxContainer" unique_id=1054691228]
+layout_mode = 2
+text = "panning"
+
+[node name="InterauralLabel" type="Label" parent="CharacterBody3D/Camera3D/Control/VBoxContainer" unique_id=707096469]
+layout_mode = 2
+text = "interaural"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1401684445]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=319957466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70897853, 0)
+shape = SubResource("WorldBoundaryShape3D_4xowi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1780473533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70900154, 0)
+mesh = SubResource("QuadMesh_a202f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=195953789]
+transform = Transform3D(0.7640668, 0.62642866, -0.15423696, -0.37953016, 0.6297891, 0.67773336, 0.52168834, -0.45929602, 0.71894956, -1.9644313, 4.083094, 0)
+light_energy = 1.285
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1836936722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0153584, -0.38977098, -7.5971336)
+mesh = SubResource("BoxMesh_a202f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1490866154]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1116828230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0041503906, -0.0013427734)
+shape = SubResource("BoxShape3D_a202f")
+
+[node name="InterauralAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MeshInstance3D" unique_id=2060655484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43950343, 0)
+stream = ExtResource("2_noarx")
+volume_db = -3.0
+autoplay = true
+script = ExtResource("3_a0tk4")
