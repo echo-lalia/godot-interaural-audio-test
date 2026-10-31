@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dh64isi2uvrhc" path="res://784188__josefpres__music-loop-na-guitar-jaguar-flanger-deesser-69-bpm.wav" id="2_noarx"]
 [ext_resource type="Script" uid="uid://cq4sx67ty8a3g" path="res://demo_ui.gd" id="2_r3fl7"]
 [ext_resource type="Script" uid="uid://bjrgsoaqrxjab" path="res://interaural_audio_stream_player_3d.gd" id="3_a0tk4"]
+[ext_resource type="AudioStream" uid="uid://dbxyl3rdkqmta" path="res://660493__lukabea__chimes-sparkle.wav" id="5_jka67"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3tvx1"]
 radius = 0.25
@@ -19,11 +20,23 @@ material = SubResource("StandardMaterial3D_a0tk4")
 size = Vector2(50, 50)
 orientation = 1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kf5nr"]
+albedo_color = Color(0.08366328, 0.33806095, 0.49423414, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_a202f"]
+material = SubResource("StandardMaterial3D_kf5nr")
 size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
 size = Vector3(0.505, 1.008, 0.506)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
+albedo_color = Color(0.67, 0.45135668, 0.07370001, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jka67"]
+material = SubResource("StandardMaterial3D_jka67")
+radius = 0.2
+height = 0.4
 
 [node name="Node3D" type="Node3D" unique_id=1589030075]
 
@@ -90,6 +103,17 @@ shape = SubResource("BoxShape3D_a202f")
 [node name="InterauralAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MeshInstance3D" unique_id=2060655484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43950343, 0)
 stream = ExtResource("2_noarx")
-volume_db = -3.0
+volume_db = -12.0
 autoplay = true
 script = ExtResource("3_a0tk4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1033779269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6435552, 1.2593122, -7.5971336)
+mesh = SubResource("SphereMesh_jka67")
+
+[node name="InterauralAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MeshInstance3D2" unique_id=1850812676]
+stream = ExtResource("5_jka67")
+volume_db = -6.0
+autoplay = true
+script = ExtResource("3_a0tk4")
+metadata/_custom_type_script = "uid://bjrgsoaqrxjab"
